@@ -1,29 +1,17 @@
 package org.example;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class Task {
 
-    private UUID id;
+    private int id;
     private String description;
     private Status status;
-    private LocalDateTime createdAt;
 
-    public LocalDateTime getUpdateAl() {
-        return updateAl;
-    }
-
-    public void setUpdateAl(LocalDateTime updateAl) {
-        this.updateAl = updateAl;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
+    public Task(int id, String description, Status status) {
+        this.id = id;
+        this.description = description;
+        this.status = status;
     }
 
     public Status getStatus() {
@@ -42,15 +30,13 @@ public class Task {
         this.description = description;
     }
 
-    public UUID getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(int id) {
         this.id = id;
     }
-
-    private LocalDateTime updateAl;
 
     @Override
     public String toString() {
@@ -58,8 +44,6 @@ public class Task {
                 "id=" + id +
                 ", description='" + description + '\'' +
                 ", status=" + status +
-                ", createdAt=" + createdAt +
-                ", updateAl=" + updateAl +
                 '}';
     }
 }
