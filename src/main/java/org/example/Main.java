@@ -28,10 +28,10 @@ public class Main {
                 }
                 break;
             case "delete":
-                if(args.length<2){
+                if(args.length<2) {
                     System.out.println("Usage: delete <id>");
 
-
+                }
             default:
                 System.out.println("Unknow comamnd: " + command);
         }
@@ -39,5 +39,4 @@ public class Main {
         }
 
     }
-
-}
+    
