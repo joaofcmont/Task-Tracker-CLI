@@ -1,6 +1,6 @@
 package org.example;
 
-import java.util.UUID;
+import com.google.gson.*;
 
 public class Task {
 
@@ -14,8 +14,8 @@ public class Task {
         this.status = status;
     }
 
-    public Status getStatus() {
-        return status;
+    public String getStatus() {
+        return status.toString();
     }
 
     public void setStatus(Status status) {
@@ -38,6 +38,11 @@ public class Task {
         this.id = id;
     }
 
+    public JsonElement toJson() {
+        Gson gson = new Gson();
+        return JsonParser.parseString(gson.toJson(this));
+    }
+
     @Override
     public String toString() {
         return "Task{" +
@@ -46,4 +51,5 @@ public class Task {
                 ", status=" + status +
                 '}';
     }
+
 }
