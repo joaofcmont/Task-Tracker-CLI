@@ -14,8 +14,8 @@ public class Task {
         this.status = status;
     }
 
-    public String getStatus() {
-        return status.toString();
+    public Status getStatus() {
+        return status;
     }
 
     public void setStatus(Status status) {

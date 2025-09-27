@@ -30,8 +30,15 @@ public class Main {
                 }
                 break;
             case "list":
-                taskManager.listTasks();
+                if (args.length == 1) {
+                    taskManager.listTasks(); // Show all tasks
+                } else if (args.length == 2) {
+                    taskManager.listTasks(args[1]); // Show filtered tasks
+                } else {
+                    System.out.println("Usage: list [todo|in_progress|done]");
+                }
                 break;
+
             default:
                 System.out.println("Unknown command: " + command);
         }

@@ -61,14 +61,43 @@ public class TaskManager {
     }
 
     void listTasks() {
+        listTasks(null); // Show all tasks by default
+    }
+
+    void listTasks(String statusFilter) {
         if (tasks.isEmpty()) {
             System.out.println("No tasks found.");
             return;
         }
 
-        System.out.println("\nTasks:");
-        for (Task task : tasks) {
-            System.out.printf("%s [%s]%n",
+        List<Task> filteredTasks = new ArrayList<>();
+
+        if (statusFilter == null) {
+            filteredTasks = tasks;
+        } else {
+            Status filterStatus;
+            try {
+                filterStatus = Status.valueOf(statusFilter.toUpperCase());
+                for (Task task : tasks) {
+                    if (task.getStatus().equals(filterStatus)){
+                        filteredTasks.add(task);
+                    }
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid status filter. Use: TODO, IN_PROGRESS, or DONE");
+                return;
+            }
+        }
+
+        if (filteredTasks.isEmpty()) {
+            System.out.println("No tasks found with status: " + statusFilter);
+            return;
+        }
+
+        System.out.println("\nTasks" + ":");
+        for (Task task : filteredTasks) {
+            System.out.printf("%d. %s [%s]%n",
+                    task.getId(),
                     task.getDescription(),
                     task.getStatus()
             );
