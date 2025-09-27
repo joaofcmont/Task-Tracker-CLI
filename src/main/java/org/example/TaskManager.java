@@ -30,13 +30,11 @@ public class TaskManager {
             try (Reader reader = new FileReader(file)) {
                 tasks = gson.fromJson(reader, taskListType);
             }
-            // Restore id counter to the last task id
             if (!tasks.isEmpty()) {
                 id = tasks.get(tasks.size() - 1).getId();
             }
         }
     }
-
 
     void addTask(String args) throws IOException {
         id++;
@@ -44,8 +42,39 @@ public class TaskManager {
         tasks.add(newTask);
         saveInFile();
         System.out.printf("%nTask added sucessfully with id: %d%n", id );
-
     }
+
+    void deleteTask(String idStr) throws IOException {
+        try {
+            int taskId = Integer.parseInt(idStr);
+            boolean removed = tasks.removeIf(task -> task.getId() == taskId);
+
+            if (removed) {
+                saveInFile();
+                System.out.printf("Task with id %d deleted successfully%n", taskId);
+            } else {
+                System.out.printf("Task with id %d not found%n", taskId);
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid task ID. Please provide a valid number.");
+        }
+    }
+
+    void listTasks() {
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks found.");
+            return;
+        }
+
+        System.out.println("\nTasks:");
+        for (Task task : tasks) {
+            System.out.printf("%s [%s]%n",
+                    task.getDescription(),
+                    task.getStatus()
+            );
+        }
+    }
+
 
 
 }

@@ -17,10 +17,20 @@ public class Main {
         switch (command) {
             case "add":
                 if (args.length < 2) {
-                    System.out.println("Usage: taskmanager add <task description>");
+                    System.out.println("Usage: add <task description>");
                 } else {
                     taskManager.addTask(args[1]);
                 }
+                break;
+            case "delete":
+                if(args.length < 2){
+                    System.out.println("Usage: delete <task id>");
+                }else{
+                    taskManager.deleteTask(args[1]);
+                }
+                break;
+            case "list":
+                taskManager.listTasks();
                 break;
             default:
                 System.out.println("Unknown command: " + command);
