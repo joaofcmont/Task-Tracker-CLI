@@ -1,7 +1,7 @@
 #!/bin/bash
 
 INSTALL_DIR="/usr/local/share/task-cli"
-JAR_FILE="$INSTALL_DIR/TaskTrackerCLI-1.0-SNAPSHOT.jar"
+JAR_FILE="$INSTALL_DIR/TaskTrackerCLI-1.0-SNAPSHOT-shaded.jar"
 
 # User data directory
 DATA_DIR="$HOME/.task-cli"
@@ -19,7 +19,7 @@ fi
 
 # Run CLI
 if [ -f "$JAR_FILE" ]; then
-    java -jar "$JAR_FILE" "$@" --data "$DATA_FILE"
+  java -jar "$JAR_FILE" "$@"
 else
     echo "Error: Task CLI not installed correctly!"
     echo "Expected JAR at: $JAR_FILE"

@@ -11,7 +11,6 @@ public class Main {
             System.out.println("Usage: taskmanager <add|update|delete> [parameters]");
             return;
         }
-        System.out.println("Args: " + java.util.Arrays.toString(args));
 
         String command = args[0];
 
