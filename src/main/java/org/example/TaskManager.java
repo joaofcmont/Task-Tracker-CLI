@@ -44,6 +44,19 @@ public class TaskManager {
         System.out.printf("%nTask added sucessfully with id: %d%n", id );
     }
 
+    void updateTask(String idStr,String description) throws IOException {
+            int taskId = Integer.parseInt(idStr);
+            for(Task task: tasks){
+                if(task.getId()==taskId){
+                    task.setDescription(description);
+                    saveInFile();
+                    System.out.printf("%nTask updated sucessfully with id: %d%n", taskId);
+                }else{
+                    System.out.printf("%nTask with id: %d does not exist%n",taskId);
+                }
+            }
+    }
+
     void deleteTask(String idStr) throws IOException {
         try {
             int taskId = Integer.parseInt(idStr);
