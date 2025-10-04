@@ -29,11 +29,18 @@ public class Main {
                     taskManager.deleteTask(args[1]);
                 }
                 break;
+            case "update":
+                if(args.length <3){
+                    System.out.println("Usage: update <task id> <updated description>");
+                }else{
+                    taskManager.updateTask(args[1],args[2]);
+                }
+                break;
             case "list":
                 if (args.length == 1) {
-                    taskManager.listTasks(); // Show all tasks
+                    taskManager.listTasks();
                 } else if (args.length == 2) {
-                    taskManager.listTasks(args[1]); // Show filtered tasks
+                    taskManager.listTasks(args[1]);
                 } else {
                     System.out.println("Usage: list [todo|in_progress|done]");
                 }

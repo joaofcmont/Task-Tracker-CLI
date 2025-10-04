@@ -1,33 +1,27 @@
 #!/bin/bash
 
-# Get the directory where the script is located
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+INSTALL_DIR="/usr/local/share/task-cli"
+JAR_FILE="$INSTALL_DIR/TaskTrackerCLI-1.0-SNAPSHOT.jar"
 
-# Look for the main JAR file
-JAR_FILE="$SCRIPT_DIR/target/TaskTrackerCLI-1.0-SNAPSHOT.jar"
+# User data directory
+DATA_DIR="$HOME/.task-cli"
+DATA_FILE="$DATA_DIR/tasks.json"
 
-# Fallback: look for task-cli.jar in current directory
-if [ ! -f "$JAR_FILE" ] && [ -f "$SCRIPT_DIR/task-cli.jar" ]; then
-    JAR_FILE="$SCRIPT_DIR/task-cli.jar"
+# Ensure data dir exists
+if [ ! -d "$DATA_DIR" ]; then
+    mkdir -p "$DATA_DIR"
 fi
 
-# Fallback: find any JAR in target
-if [ ! -f "$JAR_FILE" ]; then
-    JAR_FILE=$(find "$SCRIPT_DIR/target" -name "TaskTrackerCLI*.jar" -not -name "original-*" 2>/dev/null | head -1)
+# Ensure tasks.json exists
+if [ ! -f "$DATA_FILE" ]; then
+    echo "[]" > "$DATA_FILE"
 fi
 
+# Run CLI
 if [ -f "$JAR_FILE" ]; then
-    echo "Using JAR: $JAR_FILE"
-    # Add the lib directory to classpath for dependencies
-    LIB_DIR="$SCRIPT_DIR/target/lib"
-    if [ -d "$LIB_DIR" ]; then
-        java -cp "$JAR_FILE:$LIB_DIR/*" org.example.Main "$@"
-    else
-        java -jar "$JAR_FILE" "$@"
-    fi
+    java -jar "$JAR_FILE" "$@" --data "$DATA_FILE"
 else
-    echo "Error: No JAR file found!"
-    echo "Please build the project first with 'mvn clean package'"
-    echo "Looking for: $SCRIPT_DIR/target/TaskTrackerCLI-1.0-SNAPSHOT.jar"
+    echo "Error: Task CLI not installed correctly!"
+    echo "Expected JAR at: $JAR_FILE"
     exit 1
 fi
